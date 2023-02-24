@@ -1,10 +1,12 @@
 import './App.css';
-import { ConfigProvider,theme } from 'antd';
+import { ConfigProvider,theme,Grid } from 'antd';
 import Loading from './shared/loading';
+
+const { useBreakpoint } = Grid;
 
 const { useToken } = theme;
 function App() {
-  
+  let screenSize = useBreakpoint();
   const { token } = useToken();
   return (
     <ConfigProvider
@@ -16,7 +18,7 @@ function App() {
     <div className="App">
       <header className="App-header">
        <Loading theme={token.colorPrimary}/>
-       <sub>app development in progress</sub>
+       <sub style={{fontSize:screenSize.xs ? "25px": ""}}>app development in progress</sub>
       </header>
     </div>      
       </ConfigProvider>

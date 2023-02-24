@@ -8,7 +8,6 @@ html{
 }
 
 .App-logo {
-  height: 40vmin;
   pointer-events: none;
 }
 
@@ -25,6 +24,7 @@ html{
 .App-link {
   color: #61dafb;
 }
+
 
 /* SVG Animation */
 

@@ -1,15 +1,18 @@
-import { theme} from 'antd';
+import { theme, Grid} from 'antd';
 import React from "react";
 
+const { useBreakpoint } = Grid;
 const { useToken } = theme;
+
 
 const Loading = () =>{
 
+  let screenSize = useBreakpoint();
     const { token } = useToken();
     console.log(token.colorPrimary);
     return(  
     <main>
-      <svg version="1.0" xmlns="http://www.w3.org/2000/svg" className="App-logo" alt="logo" width="100%" height="100%" viewBox="0 0 500.000000 500.000000" preserveAspectRatio="xMidYMid meet">
+      <svg version="1.0" xmlns="http://www.w3.org/2000/svg" className="App-logo" alt="logo" width={screenSize.xs ? "100%" : "100%"}  viewBox="0 0 500.000000 500.000000" preserveAspectRatio="xMidYMid meet">
 <metadata>
 Created by potrace 1.16, written by Peter Selinger 2001-2019
 </metadata>
@@ -135,7 +138,7 @@ l-57 -23 5 42 c2 23 0 50 -5 59 -8 15 -16 9 -50 -36z" class="svg-elem-16"></path>
 -39 79z" class="svg-elem-29"></path>
 </g>
 </svg>
-        <p style={{color:token.colorPrimary}}>
+        <p style={{color:token.colorPrimary, fontSize:screenSize.xs ? "40px": ""}}>
           Black Magic Trading
         </p>
         </main>
