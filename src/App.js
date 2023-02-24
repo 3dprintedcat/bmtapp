@@ -1,25 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import { ConfigProvider,theme } from 'antd';
+import Loading from './shared/loading';
 
+const { useToken } = theme;
 function App() {
+  
+  const { token } = useToken();
   return (
+    <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary:'#7FB069',
+      },
+    }}>
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+       <Loading theme={token.colorPrimary}/>
+       <sub>app development in progress</sub>
       </header>
-    </div>
+    </div>      
+      </ConfigProvider>
   );
 }
-
 export default App;
