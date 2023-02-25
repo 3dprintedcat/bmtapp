@@ -5,6 +5,7 @@ html{
 .App {
   font-family: 'Bebas Neue', cursive;
   text-align: center;
+  background-color: #282c34;
 }
 
 .App-logo {
@@ -12,8 +13,8 @@ html{
 }
 
 .App-header {
-  min-height: 100vh;
-  display: flex;
+  background-color: #282c34;
+  
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -24,7 +25,9 @@ html{
 .App-link {
   color: #61dafb;
 }
-
+.ant-layout {
+  background-color: #282c34;
+}
 
 /* SVG Animation */
 
