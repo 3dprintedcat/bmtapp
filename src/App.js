@@ -1,11 +1,9 @@
 import './App.css';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import { ConfigProvider,theme,Grid, Layout, Menu,icon } from 'antd';
+import { ConfigProvider,theme, Layout, Menu } from 'antd';
 import MainTradingPage from './shared/mainTradingPage';
-import { Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
 import React from 'react';
-const { useBreakpoint } = Grid;
 const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
   const key = String(index + 1);
   return {
@@ -24,7 +22,6 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
 
 const { useToken } = theme;
 function App() {
-  let screenSize = useBreakpoint();
   const { token } = useToken();
   return (
     <ConfigProvider
@@ -36,9 +33,9 @@ function App() {
         colorBackground:"#1d2027",
       },
     }}>
-    <div className="App" style={{height:"100vh"}}>
+    <div className="App" style={{height:"100%", backgroundColor:token.colorBackground}}>
     <MainTradingPage/>
-    <Layout className="layout" style={{height:"100vh", backgroundColor:token.colorBackground}}>
+    <Layout className="layout" style={{height:"100%", backgroundColor:token.colorBackground}}>
     <Sider
           width={200}
           style={{
