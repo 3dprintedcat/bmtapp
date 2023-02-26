@@ -20,7 +20,12 @@ const MainTradingPage = () =>{
     const [collapsed, setCollapsed] = useState(false);
   
 const items2 = [getItem('Navigation', '1', <AimOutlined />,[
-        getItem('Planet System', 'sub1', null, [getItem('Option 11', '11', null,[getItem('Option 23', '23'),]), getItem('Option 12', '12' ,null,[getItem('Option 23', '23'),])]),
+        getItem('Planet System', 'sub1', null, [
+            getItem('Hurston System', '11', null,[
+                getItem('Hurston', '12'),
+                getItem('Arial', '13' ,null,[
+                    getItem('HDMS-Bezdek', '14'),
+                ]),]), ]),
       ,
         getItem('Stations', 'sub2', null, [getItem('Option 21', '21'), getItem('Option 22', '22'), getItem('Option 23', '23'), getItem('Option 24', '24'), getItem('Option 22', '22')]),
       ]),
@@ -40,7 +45,7 @@ const items2 = [getItem('Navigation', '1', <AimOutlined />,[
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
             style={{
-                height: '100%',
+                height: '93vh',
                 borderRight: 0,
             }}
             items={items2}
@@ -51,13 +56,14 @@ const items2 = [getItem('Navigation', '1', <AimOutlined />,[
           style={{
             padding: 0,
             background: token.colorBgContainer,
+            height: "7vh"
           }}
         >
             <BMTHeader/>
         </Header>
         <Content
           style={{
-            margin: '24px 16px',
+            margin: '16px 16px',
             padding: 24,
             minHeight: 280,
             background: token.colorBgContainer,
