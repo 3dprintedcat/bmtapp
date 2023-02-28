@@ -24,8 +24,54 @@ html{
 .App-link {
   color: #61dafb;
 }
+.ant-layout {
+  background-color: rgba(0,0,0,0);
+  border-radius: 8px 8px 8px 8px !important;
+}
+.ant-card{
+  background-color: #282c34;
+  border:none;
+  border-radius: 8px 8px 8px 8px !important;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.1);
+  color: white !important;
+  height: 100%;
 
+}
+.ant-card-body{
+  background-color: #282c34;
+  color: white !important;
+}
+.ant-card-meta-title{
+  color: white !important;
+}
+.ant-card-meta-description{
+  color: #7FB069 !important;
 
+}
+.ant-Card .ant-card-actions{
+  /* background-color:  !important; */
+  color: white !important;
+}
+
+.ant-card .ant-card-actions>li svg{
+  
+}
+#components-layout-demo-custom-trigger .trigger {
+  padding: 0 24px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.ant-Card-head{
+  background-color: #001529 !important;
+  color: white !important;
+}
+.ant-statistic-title{
+  color:white !important;
+}
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
 /* SVG Animation */
 
 
