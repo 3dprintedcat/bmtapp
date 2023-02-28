@@ -5,14 +5,16 @@ const { useBreakpoint } = Grid;
 const { useToken } = theme;
 
 
-const Loading = () =>{
-
+const Loading = ({
+  loading=false
+}) =>{
+  
   let screenSize = useBreakpoint();
     const { token } = useToken();
     console.log(token.colorPrimary);
-    return(  
-    <main>
-      <svg version="1.0" xmlns="http://www.w3.org/2000/svg" className="App-logo" alt="logo" width={screenSize.xs ? "100%" : "100%"}  viewBox="0 0 500.000000 500.000000" preserveAspectRatio="xMidYMid meet">
+    return( <>
+    <main style={{position:"fixed", left:"0", top:"30vh", width:"100vw", height:"100vh"}}>
+      <svg version="1.0" xmlns="http://www.w3.org/2000/svg" className="App-logo" alt="logo" height={screenSize.xs ? "30vh" : "40vh"} style={{float:"center"}} viewBox="0 0 500.000000 500.000000" preserveAspectRatio="xMidYMid meet">
 <metadata>
 Created by potrace 1.16, written by Peter Selinger 2001-2019
 </metadata>
@@ -138,11 +140,11 @@ l-57 -23 5 42 c2 23 0 50 -5 59 -8 15 -16 9 -50 -36z" class="svg-elem-16"></path>
 -39 79z" class="svg-elem-29"></path>
 </g>
 </svg>
-        <p style={{color:token.colorPrimary, fontSize:screenSize.xs ? "40px": ""}}>
+        <p style={{color:token.colorPrimary, fontSize:screenSize.xs ? "25px": "35px"}}>
           Black Magic Trading
         </p>
         </main>
-        );
+        </>);
 };
 
 export default Loading;

@@ -1,25 +1,26 @@
 import './App.css';
-import { ConfigProvider,theme,Grid } from 'antd';
-import Loading from './shared/loading';
+import { ConfigProvider,theme } from 'antd';
+import MainTradingPage from './shared/mainTradingPage';
+import React from 'react';
 
-const { useBreakpoint } = Grid;
 
 const { useToken } = theme;
 function App() {
-  let screenSize = useBreakpoint();
   const { token } = useToken();
   return (
     <ConfigProvider
     theme={{
       token: {
         colorPrimary:'#7FB069',
+        colorBgContainer:"#454c5a",
+        colorBgContainerDisabled:"#393f4d",
+        colorBackground:"#1d2027",
       },
     }}>
-    <div className="App">
-      <header className="App-header">
-       <Loading theme={token.colorPrimary}/>
-       <sub style={{fontSize:screenSize.xs ? "25px": ""}}>app development in progress</sub>
-      </header>
+    <div className="App" style={{height:"100%", backgroundColor:token.colorBackground}}>
+    <MainTradingPage/>
+    
+    
     </div>      
       </ConfigProvider>
   );
