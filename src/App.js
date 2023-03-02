@@ -1,28 +1,58 @@
 import './App.css';
-import { ConfigProvider,theme } from 'antd';
+import { ConfigProvider,Switch,theme } from 'antd';
 import MainTradingPage from './shared/mainTradingPage';
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 
 const { useToken } = theme;
+
+// define a function to set the theme in local storage
+export const setTheme = (custTheme) => {
+  console.log(custTheme);
+  localStorage.setItem('themeP', custTheme[0].primaryColor);
+  localStorage.setItem('themeB', custTheme[0].baseColor);
+  localStorage.setItem('themeT', custTheme[0].textColor);
+};
+
+// define a function to get the theme from local storage
+export const getTheme = () => {
+   
+  if (localStorage.getItem('themeP') === undefined){
+    setTheme({primaryColor:'#7FB069',baseColor:'#282c34',textColor:'#cccccc'});
+  }
+  return({primaryColor:localStorage.getItem('themeP'),baseColor:localStorage.getItem('themeB'),textColor:localStorage.getItem('themeT')});
+};
+
+
+
+
 function App() {
+  const [custTheme, setcustTheme] = useState(getTheme() || {primaryColor:'#7FB069',baseColor:'#282c34',textColor:'#cccccc'});
   const { token } = useToken();
-  return (
+  return (<>
     <ConfigProvider
     theme={{
       token: {
-        colorPrimary:'#7FB069',
-        colorBgContainer:"#454c5a",
-        colorBgContainerDisabled:"#393f4d",
-        colorBackground:"#1d2027",
-      },
+
+        colorPrimary:custTheme?.primaryColor || '#7FB069',
+        colorBgBase:custTheme?.baseColor || '#282c34',
+        borderRadius:"8px",
+
+
+        
+        colorTextBase:custTheme?.textColor || '#cccccc',
+        colorInfo:"#6CA6C1",
+        colorError:"#EF767A",
+        colorSuccess:'#7FB069',
+        colorWarning:'#EDAE49',},
     }}>
-    <div className="App" style={{height:"100%", backgroundColor:token.colorBackground}}>
+    <div className="App" style={{height:"100%"}}>
+    
     <MainTradingPage/>
     
     
     </div>      
       </ConfigProvider>
+      </>
   );
 }
 export default App;

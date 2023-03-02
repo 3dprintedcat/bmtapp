@@ -1,18 +1,18 @@
-html{
 
-  background-color: #282c34;
-}
 .App {
-  font-family: 'Bebas Neue', cursive;
+  
+}
+.anticon svg {
+  display: inline-block;
   text-align: center;
 }
-
 .App-logo {
   pointer-events: none;
 }
 
 .App-header {
-flex-direction: column;
+
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
@@ -22,20 +22,23 @@ flex-direction: column;
 .App-link {
   color: #61dafb;
 }
-.ant-layout {
-  background-color: rgba(0,0,0,0);
+
+.ant-layout .ant-layout-sider {
+  position: relative;
+  min-width: 0;
+  background: none !important;
+  transition: all 0.2s;
+}
+.ant-card{
+  height: 100%;
+}
+.wrapTrigger{
+  text-align: center;
+}
+.ant-card .ant-card-cover img {
+  border-radius: 8px 8px 0 0 !important;
 }
 
-#components-layout-demo-custom-trigger .trigger {
-  padding: 0 24px;
-  line-height: 64px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-#components-layout-demo-custom-trigger .trigger:hover {
-  color: #1890ff;
-}
 /* SVG Animation */
 
 
