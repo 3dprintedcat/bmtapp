@@ -1,7 +1,8 @@
 import './App.css';
-import { ConfigProvider,Switch,theme } from 'antd';
+import { Card, ConfigProvider,Switch,theme } from 'antd';
 import MainTradingPage from './shared/mainTradingPage';
 import React, { useEffect, useState } from 'react';
+import { LoginForm, loginImport } from './components/logicForLogin';
 
 const { useToken } = theme;
 
@@ -22,7 +23,10 @@ export const getTheme = () => {
   return({primaryColor:localStorage.getItem('themeP'),baseColor:localStorage.getItem('themeB'),textColor:localStorage.getItem('themeT')});
 };
 
-
+ const loginCheck = () =>{
+  console.log(loginImport() === 'loggedIn')
+  return (loginImport() === "loggedIn");
+ }
 
 
 function App() {
@@ -46,10 +50,11 @@ function App() {
         colorWarning:'#EDAE49',},
     }}>
     <div className="App" style={{height:"100%"}}>
+    <Card style={{borderRadius:0}} hidden={loginCheck()}><LoginForm/></Card>
+    {loginCheck() ? 
+    <MainTradingPage hidden={!loginCheck()} /> : <></>
     
-    <MainTradingPage/>
-    
-    
+}
     </div>      
       </ConfigProvider>
       </>

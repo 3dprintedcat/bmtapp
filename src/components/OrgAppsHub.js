@@ -4,6 +4,7 @@ import Meta from "antd/es/card/Meta";
 import { Content } from "antd/es/layout/layout";
 import { useState } from "react";
 import MainTradingPage from "../shared/mainTradingPage";
+
 const { useBreakpoint } = Grid;
 
 
@@ -44,10 +45,9 @@ const OrgAppHub = () =>{
 }
 
 const ActiveApp = ({
-    screenSize,
     onClick
 }) =>{
-
+    let screenSize = useBreakpoint();
 
     return(       <Row gutter={[8,8]}>
         <Col span={screenSize.xs ? 24 : 6}>
