@@ -1,5 +1,5 @@
 import './App.css';
-import { Card, ConfigProvider,Switch,theme } from 'antd';
+import { Card, ConfigProvider,Switch,theme, Watermark } from 'antd';
 import MainTradingPage from './shared/mainTradingPage';
 import React, { useEffect, useState } from 'react';
 import { LoginForm, loginImport } from './components/logicForLogin';
@@ -49,8 +49,9 @@ function App() {
         colorSuccess:'#7FB069',
         colorWarning:'#EDAE49',},
     }}>
-    <div className="App" style={{height:"100%"}}>
-    <Card style={{borderRadius:0}} hidden={loginCheck()}><LoginForm/></Card>
+    <div className="App" style={{height:"100vh", overflow:"hidden"}}>
+      
+    <Card style={{borderRadius:0, overflow:"auto", overflowX: "hidden"}} hidden={loginCheck()} ><LoginForm/></Card>
     {loginCheck() ? 
     <MainTradingPage hidden={!loginCheck()} /> : <></>
     
