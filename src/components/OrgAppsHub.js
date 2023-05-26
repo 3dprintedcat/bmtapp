@@ -4,12 +4,13 @@ import Meta from "antd/es/card/Meta";
 import { Content } from "antd/es/layout/layout";
 import { useState } from "react";
 import MainTradingPage from "../shared/mainTradingPage";
+import { CreateService } from "./CreateService";
 
 const { useBreakpoint } = Grid;
 
 
 
-
+ 
 
 
 
@@ -24,6 +25,8 @@ const OrgAppHub = () =>{
         setActiveApp(<><Tag color={"green"} style={{marginBottom:"1em", cursor: "pointer"}}onClick={() => {onClick("home")}}>Home</Tag><iframe src={name} width="100%" height="100%"></iframe></>);
         }else{
             setActiveApp(<ActiveApp screenSize={screenSize} onClick={onClick}/>);
+        }if (name === "add"){
+            setActiveApp(<><Tag color={"green"} style={{marginBottom:"1em", cursor: "pointer"}}onClick={() => {onClick("home")}}>Home</Tag><CreateService/></>);
         }
         
     }

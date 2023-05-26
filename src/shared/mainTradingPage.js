@@ -1,5 +1,5 @@
 import BMTHeader from './bmtHeader';
-import {EnvironmentTwoTone ,ShopTwoTone, MedicineBoxTwoTone ,MenuUnfoldOutlined,MenuFoldOutlined,SettingTwoTone } from '@ant-design/icons';
+import {EnvironmentTwoTone ,ShopTwoTone, MedicineBoxTwoTone ,MenuUnfoldOutlined,MenuFoldOutlined,SettingTwoTone,ScheduleTwoTone } from '@ant-design/icons';
 import { theme, Layout, Menu, Grid, Modal, Form, Button, Input, Space} from 'antd';
 import React,{ useState } from 'react';
 import { setTheme } from '../App';
@@ -9,6 +9,8 @@ import ItemMarket from '../components/ItemMarket';
 import { Route, BrowserRouter as  Router, Routes, useNavigate } from 'react-router-dom';
 import { loginExport } from '../components/logicForLogin';
 import { testURI } from '../components/totp';
+import CreateEventForm from '../components/CreateEvent';
+import EventGrid from '../components/EventGrid';
 
 const { Header, Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -62,6 +64,8 @@ const MainTradingPage = () =>{
       navigate("/Services");
     }else if (e.key==="3"){
       navigate("/Market");
+    }else if (e.key==="5"){
+      navigate("/Events");
     }
   };
   const logout =()=>{
@@ -113,7 +117,7 @@ const MainTradingPage = () =>{
                 borderRight: 0,
                 padding: 0,
             }}
-            items={[getMenu(1,"Org Map",<EnvironmentTwoTone twoToneColor={token.colorPrimary}/> ),getMenu(2,"Org Services",<MedicineBoxTwoTone twoToneColor={token.colorPrimary} />),getMenu(3,"In-game Market",<ShopTwoTone twoToneColor={token.colorPrimary}  />),getMenu(4,"Settings",<SettingTwoTone twoToneColor={token.colorPrimary} />)]}
+            items={[getMenu(1,"Org Map",<EnvironmentTwoTone twoToneColor={token.colorPrimary}/> ),getMenu(2,"Org Services",<MedicineBoxTwoTone twoToneColor={token.colorPrimary} />),getMenu(3,"In-game Market",<ShopTwoTone twoToneColor={token.colorPrimary}  />),getMenu(5,"Org Events",<ScheduleTwoTone twoToneColor={token.colorPrimary} />),getMenu(4,"Settings",<SettingTwoTone twoToneColor={token.colorPrimary} />)]}
           />
           
             
@@ -132,6 +136,7 @@ const MainTradingPage = () =>{
         <Route path="/OrgMap" element={<OrgMap/>} />
         <Route path="/Services"  element={<OrgAppHub/>} />
         <Route path="/Market"  element={<ItemMarket/>} />
+        <Route path="/Events"  element={<EventGrid/>} />
         </Routes>
       </Layout>
     </Layout>

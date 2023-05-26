@@ -1,22 +1,26 @@
+// Importing the OTPAuth library
 import * as OTPAuth from "otpauth";
 
-let secretSave
-export const buildTestTotp = (token,userSec) =>{
-    let totp = new OTPAuth.TOTP({
-        algorithm: "SHA1",
-        digits: 6,
-        period: 30,
-        secret:  userSec
-      });
-      
-      return (totp.validate({
-            token: token,
-            window: 1,
-          }))
-          
+// Declaring a variable to save the secret
+let secretSave;
+
+// Function to build a test TOTP
+export const buildTestTotp = (token,userSec) => {
+  // Creating a new TOTP object with specified options
+  let totp = new OTPAuth.TOTP({
+    algorithm: "SHA1",
+    digits: 6,
+    period: 30,
+    secret:  userSec
+  });
+  // Validating the TOTP with the given token and window
+  return totp.validate({
+    token: token,
+    window: 1,
+  });
 }
 
-// Create a new TOTP object.
+// Creating a new TOTP object with specified options and a random secret
 let totp = new OTPAuth.TOTP({
   issuer: "BMTSC.org",
   label: "added " + Date(),
@@ -25,47 +29,46 @@ let totp = new OTPAuth.TOTP({
   period: 30,
   secret:  random32bit()
 });
+
+// Function to generate a random 32-bit secret
 function random32bit() {
-   var regex= /^(?:[A-Z2-7]{8})*(?:[A-Z2-7]{2}={6}|[A-Z2-7]{4}={4}|[A-Z2-7]{5}={3}|[A-Z2-7]{7}=)?$/;
-var secret
-   while ( !regex.test(secret)){
+  // Regex to validate the secret
+  var regex= /^(?:[A-Z2-7]{8})*(?:[A-Z2-7]{2}={6}|[A-Z2-7]{4}={4}|[A-Z2-7]{5}={3}|[A-Z2-7]{7}=)?$/;
+  var secret;
+  // Generating a new secret until it matches the regex
+  while (!regex.test(secret)) {
     let u = new Uint32Array(1);
     window.crypto.getRandomValues(u);
     let str = u[0].toString(16).toUpperCase();
     secret = '00000000'.slice(str.length) + str;
-   }
-   
-   secretSave = secret
-   return (secret)
+  }
+  // Saving the secret
+  secretSave = secret;
+  // Returning the secret
+  return secret;
 }
 
-export const getSecret = () =>{
-    return secretSave
+// Function to get the saved secret
+export const getSecret = () => {
+  return secretSave;
 }
-// Generate a token.
 
-
-// Validate a token.
-export const validate = (token)=>{
-return totp.validate({
+// Function to validate a token
+export const validate = (token) => {
+  return totp.validate({
     token: token,
     window: 1,
-  })
-  
+  });
 }
-// Convert to Google Authenticator key URI:
-//   otpauth://totp/ACME:AzureDiamond?issuer=ACME&secret=NB2W45DFOIZA&algorithm=SHA1&digits=6&period=30
-let uri = totp.toString(); // or 'OTPAuth.URI.stringify(totp)'
 
-// Convert from Google Authenticator key URI.
+// Converting the TOTP to a Google Authenticator key URI
+let uri = totp.toString();
+
+// Parsing the TOTP from a Google Authenticator key URI
 let parsedTotp = OTPAuth.URI.parse(uri);
-export const testURI = () =>{
-    var QRCode = require('qrcode')
-    let exportURL
-    QRCode.toDataURL(uri, function (err, url) {
-        exportURL = url
-    })
-    let token = totp.generate();
-    
-return (exportURL)
+
+// Function to test the Google Authenticator key URI
+export const testURI = () => {
+  let exportURL = uri;
+  return exportURL;
 }
