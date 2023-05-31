@@ -23,7 +23,7 @@ console.log(color)
       <div >     </div>  {/* Empty div for spacing */}
       <div style={{ color: textColor }}>BMT Services Center</div>  {/* Title in the center */}
       <div style={{ WebkitAppRegion: 'no-drag', display: 'flex' }}> {/* Buttons on the right */}
-        <button 
+        {/* <button 
             onClick={minimize} 
             style={{ 
                 backgroundColor: '#555', 
@@ -59,7 +59,7 @@ console.log(color)
                 borderRadius: '50%', 
                 cursor: 'pointer'
             }}
-        >x</button>
+        >x</button> */}
       </div>
     </div>
   );
