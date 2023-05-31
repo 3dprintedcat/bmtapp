@@ -48,7 +48,7 @@ const ItemMarket = () =>{
     <Content
     style={{
         overflow:"auto",
-        padding: screenSize.xs ? 2 : 16,
+        padding: screenSize.xs ? 16 : 16,
         height:'100%'
         
     }}

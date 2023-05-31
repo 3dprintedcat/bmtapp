@@ -74,7 +74,7 @@ const OrgMap = () => {
       })
     }
   }, []);
-  const habitablePercent = (innerHZ, outerHZ, frostLine) => {console.log((frostLine - innerHZ) / (outerHZ - innerHZ) * 10); return (frostLine - innerHZ) / (outerHZ - innerHZ) * 10}
+  //const habitablePercent = (innerHZ, outerHZ, frostLine) => {console.log((frostLine - innerHZ) / (outerHZ - innerHZ) * 10); return (frostLine - innerHZ) / (outerHZ - innerHZ) * 10}
   
   return (
     <Content
@@ -86,7 +86,7 @@ const OrgMap = () => {
       }}
     >
       <Row gutter={[8,8]}>
-        <Col span={screenSize.xs ? 24 : 8}>
+        <Col span={screenSize.xs ? 24 : 12}>
           <Card title="Star System" loading={loading}>
             <Space direction="vertical" size="large">
               <TreeSelect
@@ -112,25 +112,20 @@ const OrgMap = () => {
             </Space>
           </Card>
         </Col>
-        <Col span={screenSize.xs ? 24 : 8}> <Card title="Celestial Objects" loading={loading}>
-            {system?.celestial_objects?.map((body) => (
-              <Card.Grid key={body.id}>
-                <Avatar size={64} src={<Image src={body.texture?.images?.product_thumb_large} />} />
-                <Meta title={body.name} description={body.description} />
-              </Card.Grid>
-            ))}
-          </Card>
-        </Col>
-        <Col span={screenSize.xs ? 24 : 8}>
-  <Card title="Habitable Zone">
-    <div>
-      <p>Inner: {system?.habitable_zone_inner}</p>
-      <p>Outer: {system?.habitable_zone_outer}</p>
-      <Progress type="circle" percent={habitablePercent(system?.habitable_zone_inner,system?.habitable_zone_outer,system?.frost_line)} showInfo={false} status="active" />
-    </div>
-  </Card>
-</Col>
+<Col span={screenSize.xs ? 24 : 12}>
+    <Card title="Star System Details" loading={loading}>
+      <Space direction="vertical" size="large">
+        <div style={{ marginTop: '16px' }}>
+          {console.log(system?.aggregated_size)}
+          <Statistic title="Affiliation" value={(system?.affiliation[0]?.code)?.toUpperCase()} />
+          <Statistic title="Size" value={parseFloat(system?.aggregated_size).toFixed(1)+" AU"} />
+          <Statistic title="Number of Celestial Objects" value={system?.celestial_objects?.length} />
+        </div>
+      </Space>
+    </Card>
+  </Col>
       </Row>
+      
     </Content>
   );
 };

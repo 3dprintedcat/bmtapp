@@ -1,6 +1,6 @@
 import BMTHeader from './bmtHeader';
 import {EnvironmentTwoTone ,ShopTwoTone, MedicineBoxTwoTone ,MenuUnfoldOutlined,MenuFoldOutlined,SettingTwoTone,ScheduleTwoTone } from '@ant-design/icons';
-import { theme, Layout, Menu, Grid, Modal, Form, Button, Input, Space} from 'antd';
+import { theme, Layout, Menu, Grid, Modal, Form, Button, Input, Space, Watermark} from 'antd';
 import React,{ useState } from 'react';
 import { setTheme } from '../App';
 import OrgMap from '../components/OrgMap';
@@ -11,6 +11,8 @@ import { loginExport } from '../components/logicForLogin';
 import { testURI } from '../components/totp';
 import CreateEventForm from '../components/CreateEvent';
 import EventGrid from '../components/EventGrid';
+import { ThemeGrid } from '../components/themeSets';
+
 
 const { Header, Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -74,35 +76,21 @@ const MainTradingPage = () =>{
   }
     return(
     <>
-       <Layout style={{height:"100%"}}>
-       <Modal title="Color Settings" open={isModalOpen} onCancel={handleCancel} footer={[]}>
-        
-        <Form name="colorForm" onFinish={onFinish}
-    onFinishFailed={onFinishFailed}>
-        <Form.Item 
-          label="Background Color"
-      name="baseColor"><Input type="color" defaultValue={token.colorBgBase}/></Form.Item>
-        <Form.Item  label="Primary Color"
-      name="primaryColor"><Input type="color" defaultValue={token.colorPrimary}/></Form.Item>
-        <Form.Item  label="Text Color"
-      name="textColor"><Input type="color" defaultValue={token.colorTextBase}/></Form.Item>
-      
-      <Space direction="horizontal">
-       <Button type="primary" htmlType="submit">
-        Submit
-      </Button>
-      <Button danger onClick={() =>{logout()}}>Log Out</Button>    
- </Space>
-        </Form>
 
+       <Layout style={{height:"100%"}}>
+       <Modal title="Color Settings" open={isModalOpen} width={'70%'} onCancel={handleCancel} footer={[]}>
+        
+      <Space  direction="vertical">
+      <ThemeGrid/>
+        <Button danger onClick={() =>{logout()}}>Log Out</Button>  </Space>
       </Modal>
       
-      <Sider trigger={null} collapsible collapsed={collapsed} style={{ height:"100%", overflow:"hidden" }}
+      <Sider trigger={null} collapsible collapsed={collapsed} style={{ height:"100%", overflow:"hidden", zIndex:"2" }}
       collapsedWidth={screenSize.xs ? "50":"80"}>
         <div className='wrapTrigger' >
       {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
-            style:{height: "7vh", fontSize:"2em", color:token.colorPrimary  , 
+            style:{height: "7vh", fontSize:"2em", color:token.colorPrimary  , zIndex:"2",
             textAlign: "center !important"},
             onClick: () => setCollapsed(!collapsed),
           })}
@@ -116,13 +104,14 @@ const MainTradingPage = () =>{
                 height: '93vh',
                 borderRight: 0,
                 padding: 0,
+                zIndex:"2"
             }}
             items={[getMenu(1,"Org Map",<EnvironmentTwoTone twoToneColor={token.colorPrimary}/> ),getMenu(2,"Org Services",<MedicineBoxTwoTone twoToneColor={token.colorPrimary} />),getMenu(3,"In-game Market",<ShopTwoTone twoToneColor={token.colorPrimary}  />),getMenu(5,"Org Events",<ScheduleTwoTone twoToneColor={token.colorPrimary} />),getMenu(4,"Settings",<SettingTwoTone twoToneColor={token.colorPrimary} />)]}
           />
           
             
       </Sider>
-      <Layout className="site-layout">
+      <Layout className="site-layout" style={{backgroundColor:"transparent", zIndex:"2"}} >
         <Header
           style={{
             padding: 0,
@@ -132,6 +121,7 @@ const MainTradingPage = () =>{
         >
             <BMTHeader/>
         </Header>
+        
         <Routes>
         <Route path="/OrgMap" element={<OrgMap/>} />
         <Route path="/Services"  element={<OrgAppHub/>} />

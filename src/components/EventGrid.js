@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Modal, FloatButton } from 'antd';
+import { Card, Button, Modal, FloatButton, Row, Col } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import { Content } from 'antd/es/layout/layout';
@@ -12,10 +12,17 @@ const EventGrid = () => {
 
   // Load events from API when component mounts
   useEffect(() => {
-    axios.get('https:/bmtsc.org/api/events/index.php')
-      .then(res => setEvents(res.data))
-      .catch(err => console.log(err));
-  }, []);
+  axios.get('https://bmtsc.org/api/events/index.php')
+    .then(res => {
+      console.log(res.data); // Log the response data
+      setEvents(res.data);
+    })
+    .catch(err => {
+      console.log(err);
+      // Handle the error, e.g., show an error message to the user
+    });
+}, []);
+
 
   // Show modal when card is clicked
   const handleCardClick = (event) => {
@@ -55,13 +62,16 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         height:'100%'
         
     }}>
+      <Row gutter={[16,16]}>
         <Modal open={isModalOpen} onCancel={handleCreateCancel}> <CreateEventForm/> </Modal>
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-      {events.map(event => (
+        { 0 !== events?.length ? 
+      events.map(event => (
+        <Col xs={24} sm={12} md={8} lg={6} xl={6} >
         <Card
           key={event.id}
           title={event.title}
-          style={{ width: 300 }}
+          
+
           extra={event.accepted ? <Button type="primary">Accepted</Button> : <Button onClick={() => handleCardClick(event)}>Accept</Button>}
         >
           <p><strong>Date:</strong> {event.date}</p>
@@ -70,7 +80,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
           {event.equipment && <p><strong>Equipment:</strong> {event.equipment}</p>}
           {event.roles && <p><strong>Roles:</strong> {event.roles}</p>}
         </Card>
-      ))}
+        </Col>
+      ))
+    :<></>}
       {selectedEvent && (
         <Modal
           title={selectedEvent.title}
@@ -88,7 +100,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
           {selectedEvent.roles && <p><strong>Roles:</strong> {selectedEvent.roles}</p>}
         </Modal>
       )}
-    </div>
+    </Row>
     <FloatButton onClick={() => showCreateModal()} icon={<PlusOutlined />}
       type="primary"
       style={{

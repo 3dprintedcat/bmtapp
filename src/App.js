@@ -13,6 +13,9 @@ import {
   LoginForm, 
   loginImport 
 } from './components/logicForLogin';
+import TitleBar from './components/TitleBar';
+
+
 
 const { useToken } = theme;
 
@@ -31,6 +34,9 @@ export const getTheme = () => {
     // Set the default theme
     setTheme({primaryColor:'#7FB069',baseColor:'#282c34',textColor:'#cccccc'});
   }
+  document.documentElement.style.setProperty('--primaryColor', localStorage.getItem('themeP'));
+  document.documentElement.style.setProperty('--baseColor', localStorage.getItem('themeB'));
+  document.documentElement.style.setProperty('--textColor', localStorage.getItem('themeT'));
   // Return the theme from local storage
   return({
     primaryColor:localStorage.getItem('themeP'),
@@ -56,7 +62,8 @@ function App() {
   // Return the UI components
   return (
     <>
-      <ConfigProvider
+        
+      <ConfigProvider 
         theme={{
           token: {
             // Set the theme colors using state
@@ -71,14 +78,16 @@ function App() {
           },
         }}
       >
-        <div className="App" style={{height:"100vh", overflow:"hidden"}}>
-          <Card style={{borderRadius:0, overflow:"auto", overflowX: "hidden"}} hidden={loginCheck()} >
+        <TitleBar color={custTheme?.baseColor || '#282c34'} textColor={custTheme?.textColor || '#cccccc'}/>
+        <div className="App" style={{height:"100vh", overflow:"hidden", backgroundColor:"transparent !important"}}>
+          {/* <Card style={{borderRadius:0, overflow:"auto", overflowX: "hidden"}} hidden={loginCheck()} >
             <LoginForm/>
-          </Card>
-          {loginCheck() ? 
-            <MainTradingPage hidden={!loginCheck()} /> : 
+          </Card> */}
+          {/* {loginCheck() ?  */}
+            <Watermark content="•" gap={[10,10]} zIndex={1}><MainTradingPage hidden={!loginCheck()} /></Watermark> 
+            {/* : 
             <></>
-          }
+          } */}
         </div>      
       </ConfigProvider>
     </>

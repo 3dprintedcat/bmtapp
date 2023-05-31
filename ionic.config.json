@@ -1,0 +1,7 @@
+{
+  "name": "bmtapp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
