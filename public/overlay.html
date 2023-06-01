@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Overlay</title>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-color: rgba(0, 0, 0, 0.3);
+			}
+			::-webkit-scrollbar {
+				width: 10px; /* Adjust width of scrollbar */
+			}
+
+			::-webkit-scrollbar-track {
+				background: var(
+					--baseColor
+				); /* Set the track (background) color to the base color of the theme */
+			}
+
+			::-webkit-scrollbar-thumb {
+				background: var(
+					--primaryColor
+				); /* Set the thumb (moving part) color to the primary color of the theme */
+				border-radius: 5px; /* Optional: Add border radius to make the thumb rounder */
+			}
+
+			::-webkit-scrollbar-thumb:hover {
+				background: var(--textColor); /* Change color of thumb when hovering */
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root"></div>
+		<script src="/static/js/overlay.bundle.js"></script>
+	</body>
+</html>

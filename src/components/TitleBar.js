@@ -4,9 +4,15 @@ const TitleBar = ({color, textColor}) => {
   const minimize = () => {
     window.electron.minimize();
   }
+  const maximize = () => {
+    window.electron.maximize();
+  }
 
   const close = () => {
     window.electron.close();
+  }
+   const showOverlay = () => {
+    window.electron.showOverlay();
   }
 console.log(textColor)
 console.log(color)
@@ -24,7 +30,7 @@ console.log(color)
       <div style={{ color: textColor }}>BMT Services Center</div>  {/* Title in the center */}
       <div style={{ WebkitAppRegion: 'no-drag', display: 'flex' }}> {/* Buttons on the right */}
         <button 
-            onClick={minimize} 
+            onClick={showOverlay} 
             style={{ 
                 backgroundColor: '#555', 
                 color: 'white', 
@@ -47,7 +53,19 @@ console.log(color)
                 cursor: 'pointer'
             }}
         >-</button>
-        
+        <button 
+            onClick={maximize} 
+            style={{ 
+                width: '20px',
+                height: '20px',
+                backgroundColor: '#555', 
+                color: 'white', 
+                border: 'none', 
+                borderRadius: '50%', 
+                marginRight: '10px',
+                cursor: 'pointer'
+            }}
+        >+</button>
         <button 
             onClick={close} 
             style={{ 
