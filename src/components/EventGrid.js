@@ -45,7 +45,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Accept event when confirm button is clicked
   const handleConfirm = () => {
-    axios.put(`/api/events/${selectedEvent.id}`, { accepted: true })
+    axios.put(`https://bmtsc.org/api/events/${selectedEvent.id}`, { accepted: true })
       .then(res => {
         // Update events array to reflect accepted event
         setEvents(events.map(e => e.id === selectedEvent.id ? { ...e, accepted: true } : e));

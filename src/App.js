@@ -80,14 +80,14 @@ function App() {
       >
         <TitleBar color={custTheme?.baseColor || '#282c34'} textColor={custTheme?.textColor || '#cccccc'}/>
         <div className="App" style={{height:"100vh", overflow:"hidden", backgroundColor:"transparent !important"}}>
-          {/* <Card style={{borderRadius:0, overflow:"auto", overflowX: "hidden"}} hidden={loginCheck()} >
+          <Card style={{borderRadius:0, overflow:"auto", overflowX: "hidden"}} hidden={loginCheck()} >
             <LoginForm/>
-          </Card> */}
-          {/* {loginCheck() ?  */}
+          </Card>
+          {loginCheck() ? 
             <Watermark content="•" gap={[10,10]} zIndex={1}><MainTradingPage hidden={!loginCheck()} /></Watermark> 
-            {/* : 
+             : 
             <></>
-          } */}
+          } 
         </div>      
       </ConfigProvider>
     </>

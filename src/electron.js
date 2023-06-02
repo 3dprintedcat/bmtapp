@@ -1,7 +1,9 @@
-const { app, BrowserWindow, ipcMain, screen, globalShortcut } = require('electron')
+const { app, BrowserWindow, ipcMain, screen, globalShortcut } = require('electron');
 const path = require('path');
-const isDev = process.env.NODE_ENV !== 'production';
-
+const express = require('express');
+const server = express();
+const isDev = true;
+const tools = true;
 let overlayWindow;
 
 function createWindow () {
@@ -13,16 +15,13 @@ function createWindow () {
       nodeIntegration: true,
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),
-      devTools: false
+      devTools: tools
     },
     titleBarStyle: 'hidden',
     frame: false,
     icon: path.join(__dirname, 'logo.ico') // Set the icon
   })
 
-  win.webContents.on('devtools-opened', () => {
-    win.webContents.closeDevTools();
-  });
   ipcMain.on('minimize-window', (event) => {
     win.minimize();
   });
@@ -43,21 +42,29 @@ function createWindow () {
         frame: false,
         transparent: true,
         alwaysOnTop: true,
-        devTools: false
+        devTools: tools
       })
       overlayWindow.loadURL(isDev ? 'http://localhost:3000/overlay.html' : `file://${path.join(__dirname, '../build/overlay.html')}`)
-      overlayWindow.webContents.on('devtools-opened', () => {
-    overlayWindow.webContents.closeDevTools();
-  });
+      
     } else {
       overlayWindow.show()
     }
   });
 
-  win.loadURL('http://localhost:3000')
+ if (isDev) {
+  win.loadURL('http://localhost:3000');
+} else {
+  win.loadFile(path.join(__dirname, '../build/index.html'));
+}
 }
 
 app.whenReady().then(() => {
+   // Start the server
+  server.use(express.static(path.join(__dirname, '../build')));
+  server.listen(3000, () => {
+    console.log('Server running on http://localhost:3000');
+  });
+
   createWindow();
 
   // Register a global shortcut for Ctrl+Shift+O to toggle the overlay
