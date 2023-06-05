@@ -1,4 +1,4 @@
-package com.bmtapp;
+package com.bmtapp.app;
 
 import com.getcapacitor.BridgeActivity;
 

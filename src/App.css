@@ -1,6 +1,5 @@
 body {
 	overflow-y: hidden;
-	background-color: transparent;
 }
 /* This will apply to all scrollbars in your application */
 ::-webkit-scrollbar {

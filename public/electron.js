@@ -65,6 +65,10 @@ app.whenReady().then(() => {
     console.log('Server running on http://localhost:3000');
   });
 
+  server.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../build/index.html'));
+  });
+
   createWindow();
 
   // Register a global shortcut for Ctrl+Shift+O to toggle the overlay
