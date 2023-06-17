@@ -14,7 +14,7 @@ import {
   loginImport 
 } from './components/logicForLogin';
 import TitleBar from './components/TitleBar';
-
+let mac = true;
 
 
 const { useToken } = theme;
@@ -78,7 +78,7 @@ function App() {
           },
         }}
       >
-        {/* <TitleBar color={custTheme?.baseColor || '#282c34'} textColor={custTheme?.textColor || '#cccccc'}/> */}
+        <TitleBar color={custTheme?.baseColor || '#282c34'} textColor={custTheme?.textColor || '#cccccc'} mac={mac}/>
         <div className="App" style={{height:"100vh", overflow:"hidden", backgroundColor:"transparent !important"}}>
           <Card style={{borderRadius:0, overflow:"auto", overflowX: "hidden"}} hidden={loginCheck()} >
             <LoginForm/>

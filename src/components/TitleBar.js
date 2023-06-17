@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TitleBar = ({color, textColor}) => {
+const TitleBar = ({color, textColor, mac}) => {
   const minimize = () => {
     window.electron.minimize();
   }
@@ -26,6 +26,8 @@ console.log(color)
         color: textColor ,
         padding: '10px'
     }}>
+      {!mac ? (
+        <>
       <div >     </div>  {/* Empty div for spacing */}
       <div style={{ color: textColor }}>BMT Services Center</div>  {/* Title in the center */}
       <div style={{ WebkitAppRegion: 'no-drag', display: 'flex' }}> {/* Buttons on the right */}
@@ -78,7 +80,7 @@ console.log(color)
                 cursor: 'pointer'
             }}
         >x</button>
-      </div>
+      </div></>): <div style={{marginBottom:"5px"}}></div>}
     </div>
   );
 }
