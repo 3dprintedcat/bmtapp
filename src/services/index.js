@@ -1,4 +1,4 @@
-import { AxiosLocal,AxiosService } from "./axios";
+import { AxiosLocal,AxiosService, AxiosServiceLive } from "./axios";
 
 export const GetSystems = () => {
     const url = `starmap/systems`;
@@ -6,7 +6,7 @@ export const GetSystems = () => {
 };
 export const GetUser = (userHandle) => {
     const url = `user/${userHandle}`;
-    return AxiosService.get(url);
+    return AxiosServiceLive.get(url);
 };
 export const GetBodies = (system) => {
     const url = `starmap/star-system?code=${system}`;

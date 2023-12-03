@@ -1,0 +1,26 @@
+/* src/ParticleEffect.css */
+
+#particle-container {
+	position: fixed; /* Changed to 'fixed' to cover the whole screen */
+	top: 40;
+	left: 0;
+	width: 100vw; /* Viewport width */
+	height: 100vh; /* Viewport height */
+	background: linear-gradient(to bottom, #000000, #0a0a0a, #111111);
+	z-index: 0;
+	overflow: hidden; /* Hide particles that go outside the container */
+}
+
+.particle {
+	position: absolute;
+	border-radius: 50%;
+	background: white;
+	opacity: 0.8;
+}
+
+@keyframes move {
+	to {
+		transform: translateY(-300px) scale(0);
+		opacity: 0;
+	}
+}

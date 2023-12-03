@@ -14,7 +14,8 @@ import {
   loginImport 
 } from './components/logicForLogin';
 import TitleBar from './components/TitleBar';
-let mac = true;
+import ParticleEffect from './components/ParticleEffect';
+let mac = false;
 
 
 const { useToken } = theme;
@@ -78,9 +79,10 @@ function App() {
           },
         }}
       >
-        <TitleBar color={custTheme?.baseColor || '#282c34'} textColor={custTheme?.textColor || '#cccccc'} mac={mac}/>
+        <TitleBar color={custTheme?.baseColor || '#282c34'} textColor={custTheme?.textColor || '#cccccc'} mac={mac} login={loginCheck()}/>
         <div className="App" style={{height:"100vh", overflow:"hidden", backgroundColor:"transparent !important"}}>
-          <Card style={{borderRadius:0, overflow:"auto", overflowX: "hidden"}} hidden={loginCheck()} >
+          <Card style={{borderRadius:0, overflow:"auto", overflowX: "hidden", zIndex: '1'}} hidden={loginCheck()} >
+        <ParticleEffect />
             <LoginForm/>
           </Card>
           {loginCheck() ? 

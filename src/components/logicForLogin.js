@@ -4,6 +4,7 @@ import axios from "axios"; // importing axios library for making HTTP requests
 import { buildTestTotp, getSecret, testURI } from "./totp"; // importing custom functions related to TOTP authentication
 import { GetUser } from "../services"; // importing custom function to get user data from server
 import Link from "antd/es/typography/Link"; // importing Link component from antd library
+import ParticleEffect from "./ParticleEffect";
 
 const { useBreakpoint } = Grid; // extracting useBreakpoint from Grid component
 const layout = { // defining the layout for the form
@@ -64,7 +65,7 @@ export const LoginForm = () => {
       let isPartOfBMTSC = false
           GetUser(values.playerTag)
           .then((response)=>{
-            console.log("this is the data",response.data.data.affiliation)
+            console.log("this is the data",response.data)
             if (response.data.data.organization.sid === "BMTSC"){
               console.log("yep, part of BMT")
               isPartOfBMTSC = true
@@ -119,23 +120,24 @@ export const LoginForm = () => {
   };
   const sizeSwitcher = () =>{
     if (isLoggingIn){
-    return(24)
+      return(24)
     } else if ( screenSize.xs ){
       return (24)
-     } else {
+    } else {
       return (24)
     }
   }
   return (
+    <>
     <Card  style={{
-        position: "absolute",
-        top: "0",
-        left: "0",
-        width: screenSize.sm ? "600px":"100vw" ,
-        height: "100%",
-       backgroundColor: "rgba(0,0,0,0.1)",
-       borderRadius: "0px",
-      }}>
+      position: "absolute",
+      top: "0",
+      left: "0",
+      width: screenSize.sm ? "600px":"100vw" ,
+      height: "100%",
+      backgroundColor: "rgba(0,0,0,0.1)",
+      borderRadius: "0px",
+    }}>
     <div style={{ marginTop: 50 }}>
       <h1 style={{ textAlign: "center" }}>
         {isLoggingIn ? "Login" : "Create User"}
@@ -171,7 +173,7 @@ export const LoginForm = () => {
         <div style={{display:"flex", width:"100%", justifyContent:"center", visibility:!isLoggingIn,  }}>
         
           <div style={{width:"13em", height:"24em", textAlign:"center", marginBottom:"em"}}>
-            <QRCode value={testURI()} hidden={isLoggingIn} icon="/logo192.png" size="182" style={{borderRadius:"8px 8px 0px 0px"}}/>
+            <QRCode value={testURI()} hidden={isLoggingIn} icon="/logo192.png" bgColor="#ffffff" size="182" style={{borderRadius:"8px 8px 0px 0px"}}/>
         <Card style={{borderRadius: "0px 0px 8px 8px",backgroundColor:"black", color: "white", height:"10.5em" }} bodyStyle={{padding:"8px"}}  hidden={isLoggingIn}>Using an Authenticator app such as Google Authenticator, please scan the QR Code and confirm a One Time 6 digit Password.</Card>
         </div>
         </div >
@@ -195,5 +197,6 @@ export const LoginForm = () => {
       </Form>
     </div>
     </Card>
+    </>
   );
 };

@@ -1,5 +1,6 @@
 body {
 	overflow-y: hidden;
+	z-index: 0;
 }
 /* This will apply to all scrollbars in your application */
 ::-webkit-scrollbar {

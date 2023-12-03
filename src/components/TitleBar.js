@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TitleBar = ({color, textColor, mac}) => {
+const TitleBar = ({color, textColor, mac, login}) => {
   const minimize = () => {
     window.electron.minimize();
   }
@@ -16,15 +16,17 @@ const TitleBar = ({color, textColor, mac}) => {
   }
 console.log(textColor)
 console.log(color)
+console.log(login)
   return (
     <div style={{ 
         WebkitAppRegion: 'drag', 
         display: 'flex', 
         justifyContent: 'space-between', 
         alignItems: 'center',
-        backgroundColor: color,
+        backgroundColor: !login ? "#000000" :color,
         color: textColor ,
-        padding: '10px'
+        padding: '10px',
+        zIndex: '100'
     }}>
       {!mac ? (
         <>
