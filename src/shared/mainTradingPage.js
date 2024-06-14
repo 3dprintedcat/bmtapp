@@ -85,7 +85,7 @@ const MainTradingPage = () =>{
         <Button danger onClick={() =>{logout()}}>Log Out</Button>  </Space>
       </Modal>
       
-      <Sider trigger={null} collapsible collapsed={collapsed} style={{ height:"100%", overflow:"hidden", zIndex:"2" }}
+      <Sider   trigger={null} collapsible collapsed={collapsed} style={{ height:"100%", overflow:"hidden", zIndex:"2" }}
       collapsedWidth={screenSize.xs ? "50":"80"}>
         <div className='wrapTrigger' >
       {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
