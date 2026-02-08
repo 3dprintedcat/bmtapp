@@ -1,11 +1,12 @@
 import BMTHeader from './bmtHeader';
-import {EnvironmentTwoTone ,ShopTwoTone, MedicineBoxTwoTone ,MenuUnfoldOutlined,MenuFoldOutlined,SettingTwoTone,ScheduleTwoTone } from '@ant-design/icons';
+import {EnvironmentTwoTone ,ShopTwoTone, MedicineBoxTwoTone ,MenuUnfoldOutlined,MenuFoldOutlined,SettingTwoTone,ScheduleTwoTone, HomeTwoTone } from '@ant-design/icons';
 import { theme, Layout, Menu, Grid, Modal, Form, Button, Input, Space, Watermark} from 'antd';
 import React,{ useState } from 'react';
 import { setTheme } from '../App';
 import OrgMap from '../components/OrgMap';
 import OrgAppHub from '../components/OrgAppsHub';
 import ItemMarket from '../components/ItemMarket';
+import Homepage from '../components/Homepage';
 import { Route, BrowserRouter as  Router, Routes, useNavigate } from 'react-router-dom';
 import { loginExport } from '../components/logicForLogin';
 import { testURI } from '../components/totp';
@@ -57,8 +58,9 @@ const MainTradingPage = () =>{
   };
   const onClick = (e) => {
     setCollapsed(true);
-    if (e.key==="4"){
-      
+    if (e.key==="0"){
+      navigate("/");
+    } else if (e.key==="4"){
       showModal();
     } else if (e.key==="1"){
       navigate("/OrgMap");
@@ -106,7 +108,7 @@ const MainTradingPage = () =>{
                 padding: 0,
                 zIndex:"2"
             }}
-            items={[getMenu(1,"Org Map",<EnvironmentTwoTone twoToneColor={token.colorPrimary}/> ),getMenu(2,"Org Services",<MedicineBoxTwoTone twoToneColor={token.colorPrimary} />),getMenu(3,"In-game Market",<ShopTwoTone twoToneColor={token.colorPrimary}  />),getMenu(5,"Org Events",<ScheduleTwoTone twoToneColor={token.colorPrimary} />),getMenu(4,"Settings",<SettingTwoTone twoToneColor={token.colorPrimary} />)]}
+            items={[getMenu(0,"Home",<HomeTwoTone twoToneColor={token.colorPrimary}/> ),getMenu(1,"Org Map",<EnvironmentTwoTone twoToneColor={token.colorPrimary}/> ),getMenu(2,"Org Services",<MedicineBoxTwoTone twoToneColor={token.colorPrimary} />),getMenu(3,"In-game Market",<ShopTwoTone twoToneColor={token.colorPrimary}  />),getMenu(5,"Org Events",<ScheduleTwoTone twoToneColor={token.colorPrimary} />),getMenu(4,"Settings",<SettingTwoTone twoToneColor={token.colorPrimary} />)]}
           />
           
             
@@ -123,10 +125,12 @@ const MainTradingPage = () =>{
         </Header>
         
         <Routes>
+        <Route path="/" element={<Homepage/>} />
         <Route path="/OrgMap" element={<OrgMap/>} />
         <Route path="/Services"  element={<OrgAppHub/>} />
         <Route path="/Market"  element={<ItemMarket/>} />
         <Route path="/Events"  element={<EventGrid/>} />
+        <Route path="/Settings"  element={<Modal open={true} width={'70%'} onCancel={() => navigate('/')} footer={[]}><Space direction="vertical"><ThemeGrid/><Button danger onClick={() => logout()}>Log Out</Button></Space></Modal>} />
         </Routes>
       </Layout>
     </Layout>

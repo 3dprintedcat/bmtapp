@@ -1,0 +1,379 @@
+import React from 'react';
+import { Card, Col, Row, Grid } from 'antd';
+
+const { useBreakpoint } = Grid;
+
+const themes = [
+  // Ship Manufacturers
+  {
+    name: 'Aegis Dynamics',
+    description: 'Military precision and strength',
+    primaryColor: '#4A6FA5',
+    baseColor: '#1A1F2E',
+    textColor: '#E8EEF7',
+    borderRadius: 2,
+    fontFamily: 'Rajdhani, sans-serif'
+  },
+  {
+    name: 'Anvil Aerospace',
+    description: 'Military-grade ruggedness',
+    primaryColor: '#D84315',
+    baseColor: '#263238',
+    textColor: '#ECEFF1',
+    borderRadius: 0,
+    fontFamily: 'Saira Condensed, sans-serif'
+  },
+  {
+    name: 'ARGO Astronautics',
+    description: 'Industrial utility',
+    primaryColor: '#FFA726',
+    baseColor: '#424242',
+    textColor: '#FFE0B2',
+    borderRadius: 4,
+    fontFamily: 'Roboto Condensed, sans-serif'
+  },
+  {
+    name: 'Consolidated Outland',
+    description: 'Innovative exploration',
+    primaryColor: '#26A69A',
+    baseColor: '#F5F5F5',
+    textColor: '#004D40',
+    borderRadius: 16,
+    fontFamily: 'Montserrat, sans-serif'
+  },
+  {
+    name: 'Crusader Industries',
+    description: 'Luxury and capability',
+    primaryColor: '#FF6F00',
+    baseColor: '#0D1117',
+    textColor: '#FFE0B2',
+    borderRadius: 12,
+    fontFamily: 'Exo 2, sans-serif'
+  },
+  {
+    name: 'Drake Interplanetary',
+    description: 'Function over form',
+    primaryColor: '#FF6B35',
+    baseColor: '#1C1C1C',
+    textColor: '#F4F4F4',
+    borderRadius: 3,
+    fontFamily: 'Roboto, sans-serif'
+  },
+  {
+    name: 'Esperia',
+    description: 'Alien reproductions',
+    primaryColor: '#8E24AA',
+    baseColor: '#1A1625',
+    textColor: '#E1BEE7',
+    borderRadius: 8,
+    fontFamily: 'Orbitron, sans-serif'
+  },
+  {
+    name: 'Kruger Intergalactic',
+    description: 'Compact German engineering',
+    primaryColor: '#0277BD',
+    baseColor: '#ECEFF1',
+    textColor: '#01579B',
+    borderRadius: 2,
+    fontFamily: 'IBM Plex Sans, sans-serif'
+  },
+  {
+    name: 'MISC',
+    description: 'Versatile workhorse ships',
+    primaryColor: '#F57C00',
+    baseColor: '#212121',
+    textColor: '#FFE0B2',
+    borderRadius: 6,
+    fontFamily: 'Inter, sans-serif'
+  },
+  {
+    name: 'Origin Jumpworks',
+    description: 'Luxury and elegance',
+    primaryColor: '#29B6F6',
+    baseColor: '#FAFAFA',
+    textColor: '#0D47A1',
+    borderRadius: 16,
+    fontFamily: 'Raleway, sans-serif'
+  },
+  {
+    name: 'RSI (Roberts Space)',
+    description: 'Classic UEE design',
+    primaryColor: '#1976D2',
+    baseColor: '#263238',
+    textColor: '#E3F2FD',
+    borderRadius: 4,
+    fontFamily: 'Titillium Web, sans-serif'
+  },
+  {
+    name: 'Tumbril Land Systems',
+    description: 'Ground vehicle specialists',
+    primaryColor: '#7CB342',
+    baseColor: '#1B1B1B',
+    textColor: '#DCEDC8',
+    borderRadius: 0,
+    fontFamily: 'Roboto Condensed, sans-serif'
+  },
+  {
+    name: 'Vanduul Clans',
+    description: 'Alien aggression',
+    primaryColor: '#C62828',
+    baseColor: '#0A0A0A',
+    textColor: '#FFCDD2',
+    borderRadius: 1,
+    fontFamily: 'Michroma, sans-serif'
+  },
+  {
+    name: 'Banu Souli',
+    description: 'Alien merchants',
+    primaryColor: '#FFB300',
+    baseColor: '#3E2723',
+    textColor: '#FFF8E1',
+    borderRadius: 8,
+    fontFamily: 'Orbitron, sans-serif'
+  },
+  {
+    name: "Xi'an Empire",
+    description: 'Ancient alien culture',
+    primaryColor: '#43A047',
+    baseColor: '#1B2A27',
+    textColor: '#C8E6C9',
+    borderRadius: 12,
+    fontFamily: 'Exo 2, sans-serif'
+  },
+  {
+    name: 'Tevarin Remnant',
+    description: 'Honorable warriors',
+    primaryColor: '#5E35B1',
+    baseColor: '#1A1625',
+    textColor: '#D1C4E9',
+    borderRadius: 6,
+    fontFamily: 'Rajdhani, sans-serif'
+  },
+  
+  // Corporations & Planets
+  {
+    name: 'ArcCorp',
+    description: 'Industrial mega-corporation',
+    primaryColor: '#F4511E',
+    baseColor: '#212121',
+    textColor: '#FFCCBC',
+    borderRadius: 0,
+    fontFamily: 'Saira Condensed, sans-serif'
+  },
+  {
+    name: 'Hurston Dynamics',
+    description: 'Weapons manufacturing',
+    primaryColor: '#6D4C41',
+    baseColor: '#1C1410',
+    textColor: '#D7CCC8',
+    borderRadius: 2,
+    fontFamily: 'Roboto, sans-serif'
+  },
+  {
+    name: 'microTech',
+    description: 'Computer technology',
+    primaryColor: '#42A5F5',
+    baseColor: '#FAFAFA',
+    textColor: '#0D47A1',
+    borderRadius: 8,
+    fontFamily: 'IBM Plex Sans, sans-serif'
+  },
+  {
+    name: 'Crusader (Planet)',
+    description: 'Gas giant platforms',
+    primaryColor: '#FB8C00',
+    baseColor: '#0A0E14',
+    textColor: '#FFE0B2',
+    borderRadius: 12,
+    fontFamily: 'Exo 2, sans-serif'
+  },
+  
+  // Factions & Organizations
+  {
+    name: 'UEE Navy',
+    description: 'United Empire military',
+    primaryColor: '#1565C0',
+    baseColor: '#0D1B2A',
+    textColor: '#BBDEFB',
+    borderRadius: 0,
+    fontFamily: 'Rajdhani, sans-serif'
+  },
+  {
+    name: 'UEE Advocacy',
+    description: 'Law enforcement',
+    primaryColor: '#283593',
+    baseColor: '#1A1F2E',
+    textColor: '#C5CAE9',
+    borderRadius: 2,
+    fontFamily: 'Titillium Web, sans-serif'
+  },
+  {
+    name: 'Nine Tails',
+    description: 'Pirate syndicate',
+    primaryColor: '#D32F2F',
+    baseColor: '#0F0F0F',
+    textColor: '#FFCDD2',
+    borderRadius: 4,
+    fontFamily: 'Michroma, sans-serif'
+  },
+  {
+    name: 'Xenothreat',
+    description: 'Human supremacists',
+    primaryColor: '#BF360C',
+    baseColor: '#1C1410',
+    textColor: '#FFCCBC',
+    borderRadius: 1,
+    fontFamily: 'Saira Condensed, sans-serif'
+  },
+  {
+    name: 'Crusader Security',
+    description: 'Private security',
+    primaryColor: '#FF8F00',
+    baseColor: '#212121',
+    textColor: '#FFE57F',
+    borderRadius: 6,
+    fontFamily: 'Roboto Condensed, sans-serif'
+  },
+  
+  // Locations
+  {
+    name: 'Stanton System',
+    description: 'Corporate controlled',
+    primaryColor: '#FFD600',
+    baseColor: '#1F1F1F',
+    textColor: '#FFF9C4',
+    borderRadius: 8,
+    fontFamily: 'Inter, sans-serif'
+  },
+  {
+    name: 'Terra',
+    description: 'Human cultural capital',
+    primaryColor: '#00897B',
+    baseColor: '#F5F5F5',
+    textColor: '#004D40',
+    borderRadius: 12,
+    fontFamily: 'Montserrat, sans-serif'
+  },
+  {
+    name: 'Orison',
+    description: 'Floating city',
+    primaryColor: '#42A5F5',
+    baseColor: '#E3F2FD',
+    textColor: '#01579B',
+    borderRadius: 16,
+    fontFamily: 'Raleway, sans-serif'
+  },
+  {
+    name: 'Lorville',
+    description: 'Industrial sprawl',
+    primaryColor: '#8D6E63',
+    baseColor: '#1C1410',
+    textColor: '#D7CCC8',
+    borderRadius: 0,
+    fontFamily: 'Roboto Condensed, sans-serif'
+  },
+  {
+    name: 'Area18',
+    description: 'Urban metropolis',
+    primaryColor: '#FF5722',
+    baseColor: '#212121',
+    textColor: '#FFCCBC',
+    borderRadius: 2,
+    fontFamily: 'Titillium Web, sans-serif'
+  },
+  {
+    name: 'New Babbage',
+    description: 'Arctic technology hub',
+    primaryColor: '#29B6F6',
+    baseColor: '#FAFAFA',
+    textColor: '#0277BD',
+    borderRadius: 8,
+    fontFamily: 'IBM Plex Sans, sans-serif'
+  },
+  {
+    name: 'GrimHEX',
+    description: 'Outlaw station',
+    primaryColor: '#E53935',
+    baseColor: '#0A0A0A',
+    textColor: '#FFCDD2',
+    borderRadius: 3,
+    fontFamily: 'Michroma, sans-serif'
+  },
+  {
+    name: 'Port Olisar',
+    description: 'Legacy station',
+    primaryColor: '#1976D2',
+    baseColor: '#263238',
+    textColor: '#BBDEFB',
+    borderRadius: 4,
+    fontFamily: 'Rajdhani, sans-serif'
+  }
+];
+
+
+export const ThemeGrid = () => {
+  const screenSize = useBreakpoint();
+
+  const setTheme = (theme) => {
+    console.log(theme);
+    localStorage.setItem('themeP', theme.primaryColor);
+    localStorage.setItem('themeB', theme.baseColor);
+    localStorage.setItem('themeT', theme.textColor);
+    localStorage.setItem('themeR', theme.borderRadius);
+    localStorage.setItem('themeF', theme.fontFamily);
+    window.location.reload();
+  };
+
+  return (
+    <div className="site-card-wrapper">
+      <Row gutter={[16, 16]}>
+        {themes.map((theme, index) => (
+          <Col xs={24} sm={12} md={8} lg={6} xl={6} key={index}>
+            <Card
+              hoverable
+              style={{ 
+                backgroundColor: theme.baseColor, 
+                color: theme.textColor, 
+                borderColor: theme.primaryColor,
+                borderWidth: '4px',
+                borderStyle: 'solid',
+                borderRadius: `${theme.borderRadius}px`
+              }}
+              onClick={() => setTheme(theme)}
+            >
+              <Card.Meta 
+                title={
+                  <div>
+                    <div style={{ color: theme.textColor, fontWeight: 'bold', marginBottom: '4px', fontFamily: theme.fontFamily }}>
+                      {theme.name}
+                    </div>
+                    <div style={{ 
+                      color: theme.textColor, 
+                      fontSize: '12px', 
+                      opacity: 0.8,
+                      fontStyle: 'italic' 
+                    }}>
+                      {theme.description}
+                    </div>
+                  </div>
+                } 
+                description={
+                  <div style={{ color: theme.textColor, marginTop: '8px' }}>
+                    <div>Border Radius: {theme.borderRadius}px</div>
+                    <div style={{ fontSize: '11px', opacity: 0.8, marginTop: '2px' }}>
+                      Font: {theme.fontFamily.split(',')[0]}
+                    </div>
+                    <div style={{ fontSize: '11px', opacity: 0.7, marginTop: '4px' }}>
+                      Click to apply
+                    </div>
+                  </div>
+                } 
+              />
+
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </div>
+  );
+};

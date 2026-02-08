@@ -59,7 +59,7 @@
 	"scripts": {
 		"react-start": "react-app-rewired start",
 		"electron-start": "electron .",
-		"start": "concurrently \"cross-env npm run react-start\" \"wait-on http://localhost:3000 && npm run electron-start\"",
+		"start": "concurrently \"cross-env npm run react-start\" \"wait-on http://localhost:3001 && npm run electron-start\"",
 		"build": "react-app-rewired build",
 		"test": "react-app-rewired test",
 		"eject": "react-app-rewired eject",

@@ -43,17 +43,32 @@ export const LoginForm = () => {
       // Login request
       token = values.totp
       axios
-        .post("https://bmtsc.org/api/retrieveUser/", {
+        .post("http://localhost:3000/retrieveUser/", {
           playerTag: values.playerTag,
           password: values.password,
         })
         .then((response) => {
-          if (buildTestTotp(token,response.data.totp) === null){
+          console.log("Server response:", response.data);
+          console.log("Entered token:", token);
+          
+          // Handle different response structures
+          const totpSecret = response.data.data?.totp || response.data.totp;
+          console.log("Stored TOTP secret:", totpSecret);
+          
+          if (!totpSecret) {
+            message.error("TOTP secret not found in user data");
+            return;
+          }
+          
+          const validationResult = buildTestTotp(token, totpSecret);
+          console.log("Validation result:", validationResult);
+          
+          if (validationResult === null){
             message.error("OTP Incorrect");
           }else{
-          message.success("Login successful");
-          loginExport("loggedIn", values.playerTag);
-          window.location.reload()
+            message.success("Login successful");
+            loginExport("loggedIn", values.playerTag);
+            window.location.reload()
           }
         })
         .catch((error) => {
@@ -61,55 +76,40 @@ export const LoginForm = () => {
           message.error("Login failed");
         });
     } else {
-      // Create user request
-      let isPartOfBMTSC = false
-          GetUser(values.playerTag)
-          .then((response)=>{
-            console.log("this is the data",response.data)
-            if (response.data.data.organization.sid === "BMTSC"){
-              console.log("yep, part of BMT")
-              isPartOfBMTSC = true
-            }
-            let listOfOrgs = response.data.data.affiliation
-            listOfOrgs.forEach(element => {
-              console.log("fire")
-              console.log(element.sid)
-              if (element.sid === "BMTSC"){
-                console.log("yep, part of BMT")
-                isPartOfBMTSC = true
-              }
-            });
-           
-
-            if (buildTestTotp(values.totp,getSecret()) === null ){message.error("OTP Incorrect")}else{
-              console.log(isPartOfBMTSC)
-              if (!isPartOfBMTSC){message.error("User Handle doesn't exist in BMTSC, please try again.")}else{
-                token = getSecret()
-                axios
-                .post("https://bmtsc.org/api/createUser/", {
-                  playerTag: values.playerTag,
-                  password: values.password,
-                  totp: token,
-        })
-        .then((response) => {
-          message.success("User created successfully");
-          axios
-          .post("https://bmtsc.org/api/retrieveUser/", {
+      // Create user request - backend will verify BMTSC membership
+      if (buildTestTotp(values.totp, getSecret()) === null) {
+        message.error("OTP Incorrect");
+      } else {
+        const loadingMsg = message.loading('Creating user account...', 0);
+        token = getSecret();
+        
+        axios
+          .post("http://localhost:3000/createUser/", {
             playerTag: values.playerTag,
             password: values.password,
-          }).then(()=>{
-            loginExport("loggedIn");
-            window.location.reload()
+            totp: token,
           })
-          
-        })
-        .catch((error) => {
-          console.error(error);
-          message.error("Error creating user");
-        });
+          .then((response) => {
+            loadingMsg();
+            message.success("User created successfully");
+            axios
+              .post("http://localhost:3000/retrieveUser/", {
+                playerTag: values.playerTag,
+                password: values.password,
+              })
+              .then(() => {
+                loginExport("loggedIn", values.playerTag);
+                window.location.reload();
+              });
+          })
+          .catch((error) => {
+            loadingMsg();
+            console.error(error);
+            // Backend will return specific error message for BMTSC verification failure
+            const errorMsg = error.response?.data?.error || "Error creating user";
+            message.error(errorMsg);
+          });
       }
-    }
-  })
     }
   };
 
@@ -146,9 +146,10 @@ export const LoginForm = () => {
       <Row gutter={[8,8]}>
       <Col span={sizeSwitcher()}>
         <Form.Item
-          label="BMTSC Player Handle"
+          label="Player Handle"
           name="playerTag"
           rules={[{ required: true, message: "Please input your player tag!" }]}
+          extra={!isLoggingIn ? "Must be a member of BMTSC organization" : undefined}
         >
           <Input />
         </Form.Item>

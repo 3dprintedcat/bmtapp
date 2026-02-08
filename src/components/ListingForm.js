@@ -28,7 +28,7 @@ const AddItem = () => {
     console.log(imageURLImport())
     if (imageURLImport() !== "undefined"){
     var image = imageURLImport();
-    axios.post('https://bmtsc.org/api/items/', {
+    axios.post('http://localhost:3000/items/', {
       title: name,
       description,
       price,

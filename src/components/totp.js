@@ -6,18 +6,29 @@ let secretSave;
 
 // Function to build a test TOTP
 export const buildTestTotp = (token,userSec) => {
-  // Creating a new TOTP object with specified options
-  let totp = new OTPAuth.TOTP({
-    algorithm: "SHA1",
-    digits: 6,
-    period: 30,
-    secret:  userSec
-  });
-  // Validating the TOTP with the given token and window
-  return totp.validate({
-    token: token,
-    window: 1,
-  });
+  console.log("buildTestTotp called with token:", token, "secret:", userSec);
+  
+  try {
+    // Creating a new TOTP object with specified options
+    let totp = new OTPAuth.TOTP({
+      algorithm: "SHA1",
+      digits: 6,
+      period: 30,
+      secret: userSec
+    });
+    
+    // Validating the TOTP with the given token and window
+    const result = totp.validate({
+      token: token,
+      window: 1,
+    });
+    
+    console.log("Validation result:", result);
+    return result;
+  } catch (error) {
+    console.error("Error validating TOTP:", error);
+    return null;
+  }
 }
 
 // Creating a new TOTP object with specified options and a random secret

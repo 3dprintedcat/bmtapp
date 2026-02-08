@@ -17,7 +17,7 @@ body {
 	background: var(
 		--primaryColor
 	); /* Set the thumb (moving part) color to the primary color of the theme */
-	border-radius: 5px; /* Optional: Add border radius to make the thumb rounder */
+	border-radius: var(--borderRadius, 5px); /* Use theme border radius or fallback to 5px */
 }
 
 ::-webkit-scrollbar-thumb:hover {

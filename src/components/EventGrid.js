@@ -12,10 +12,12 @@ const EventGrid = () => {
 
   // Load events from API when component mounts
   useEffect(() => {
-  axios.get('https://bmtsc.org/api/events/index.php')
+  axios.get('http://localhost:3000/events/')
     .then(res => {
       console.log(res.data); // Log the response data
-      setEvents(res.data);
+      // Handle different response structures
+      const data = Array.isArray(res?.data) ? res.data : (res?.data?.data || []);
+      setEvents(Array.isArray(data) ? data : []);
     })
     .catch(err => {
       console.log(err);
@@ -45,7 +47,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Accept event when confirm button is clicked
   const handleConfirm = () => {
-    axios.put(`https://bmtsc.org/api/events/${selectedEvent.id}`, { accepted: true })
+    axios.put(`http://localhost:3000/events/${selectedEvent.id}`, { accepted: true })
       .then(res => {
         // Update events array to reflect accepted event
         setEvents(events.map(e => e.id === selectedEvent.id ? { ...e, accepted: true } : e));

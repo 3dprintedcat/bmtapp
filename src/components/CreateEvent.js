@@ -6,7 +6,7 @@ const { Option } = Select;
 
 const CreateEventForm = () => {
   const onFinish = (values) => {
-    axios.post('https:/bmtsc.org/api/events/index.php',JSON.stringify(values))
+    axios.post('http://localhost:3000/events/',JSON.stringify(values))
       .then((response) => {
         console.log(values);
         console.log(response.data);

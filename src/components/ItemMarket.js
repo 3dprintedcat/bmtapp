@@ -78,7 +78,13 @@ var flag = true;
       flag=false;
       GetItemList()
       .then( (res) => {
-        let data = res?.data;
+        console.log("ItemMarket response:", res.data);
+        // Handle different response structures
+        let data = Array.isArray(res?.data) ? res.data : (res?.data?.data || []);
+        if (!Array.isArray(data)) {
+          console.error("Expected array but got:", data);
+          data = [];
+        }
         setItems(<Row gutter={[8,8]} Loading={loading} >{data?.map((element) => (<React.Fragment key={element.id}>
             
           <Col xs={24} sm={12} md={8} lg={6} xl={4}>

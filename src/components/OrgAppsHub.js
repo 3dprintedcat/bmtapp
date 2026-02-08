@@ -14,14 +14,18 @@ const OrgAppHub = () => {
     const screenSize = useBreakpoint();
 
     useEffect(() => {
-        axios.get('https://bmtsc.org/api/apps/index.php')
+        axios.get('http://localhost:3000/apps/')
             .then(response => {
-                setApps(response.data);
                 console.log(response.data);
-                setActiveApp(<ActiveApp apps={response.data} screenSize={screenSize} onClick={onClick} />);
+                // Handle different response structures
+                const data = Array.isArray(response?.data) ? response.data : (response?.data?.data || []);
+                const appsArray = Array.isArray(data) ? data : [];
+                setApps(appsArray);
+                setActiveApp(<ActiveApp apps={appsArray} screenSize={screenSize} onClick={onClick} />);
             })
             .catch(error => {
                 console.error('There was an error!', error);
+                setApps([]);
             });
     }, [screenSize]);
 

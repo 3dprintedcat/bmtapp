@@ -17,9 +17,9 @@ export const UploadImage = () => {
     }
     if (Array.from(info.file.response)[0] === "T") {
       setLoading(false);
-      setImageUrl("https://bmtsc.org/uploads/" + info.file.name);
+      setImageUrl("http://localhost:3000/uploads/" + info.file.name);
       message.success(`${info.file.name} file uploaded successfully`);
-      imageURLExport("https://bmtsc.org/uploads/" + info.file.name)
+      imageURLExport("http://localhost:3000/uploads/" + info.file.name)
     } else if (Array.from(info.file.response)[0] === "S") {
         imageURLExport()
       setLoading(false);
@@ -37,7 +37,7 @@ export const UploadImage = () => {
   return (<>
     <Upload
       name="fileToUpload"
-      action="https://bmtsc.org/upload.php"
+      action="http://localhost:3000/upload"
       listType="picture-card"
       showUploadList={false}
       onChange={handleChange}
